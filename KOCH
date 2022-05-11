@@ -12,7 +12,14 @@ size(500,500);
 background(200);
 }
 
-void Koch (float ax, float ay, float bx, float by, int nivel){
+void Koch (float Ax, float Ay, float Bx, float By, int nivel){
+  
+  float ax, ay, bx, by;
+  ax = Ax;
+  ay = Ay;
+  bx = Bx;
+  by = By;
+  
     if(nivel == 0){
      line(ax,ay,bx,by);
      return;
@@ -20,10 +27,10 @@ void Koch (float ax, float ay, float bx, float by, int nivel){
     
     float cx, cy, dx, dy, ex, ey;
     cx = (bx-ax)*1/3 + ax ;
-    cy = height/2;
+    cy = (by-ay)*1/3 + ay;
 
     dx = (bx-ax)*2/3 + ax;
-    dy = height/2;
+    dy = (by-ay)*2/3 + ay;
 
     ex = ((dx-cx)*cos(PI/3) + (dy-cy)*sin(PI/3) )+cx;
     ey = ((dy-cy)*cos(PI/3) - (dx-cx)*sin(PI/3) )+cy;
@@ -74,8 +81,8 @@ ax = 10;
 ay = height/2;
 bx = width - 10;
 by = height/2;
-Koch(ax,ay,bx,by,1);
+
+Koch(ax,ay,bx,by,4);
 
 
 }
-
