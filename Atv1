@@ -1,0 +1,79 @@
+float fr;
+void setup(){
+ size(900,900); 
+ fr = 30; //frameRate;
+
+}
+
+void draw(){
+pushMatrix();
+ for (int i = 0; i<3 ; i++){
+   for(int j = 0; j<3; j++){
+      rect(i*300, j*300, 300, 300);  
+      
+   }
+  }
+popMatrix();
+  //drawA();
+  //drawB();
+  drawC();
+  drawD();
+  //drawE();
+  //drawF();
+  //drawG();
+  //drawH();
+  
+  
+fill(255);
+}
+
+//void drawA(){}
+//void drawB(){}
+
+void drawC (){
+  
+  pushMatrix();
+  noStroke();
+  translate(0,0);
+  translate(300*2+150,150);
+  fill(255, 204, 0);
+  circle(0,0,50);
+  rotate(frameCount*(TWO_PI)/(60*20));
+  translate(100,0);
+  fill(0,0,205);
+  circle(0,0,20);
+  rotate(frameCount*(TWO_PI)/(60*5));
+  translate(30,0);
+  fill(100);
+  circle(0,0,5);
+  popMatrix();
+  
+}
+
+void drawD(){
+  pushMatrix();
+  noStroke();
+  translate(0,0);
+  translate(150,450);
+  //fill(255, 204, 0);
+  //circle(0,0,50);
+  rotate(frameCount*(TWO_PI)/(60*20));
+  translate(100,0);
+  //fill(0,0,205);
+  //circle(0,0,20);
+  rotate(frameCount*(TWO_PI)/(60*5));
+  translate(30,0);
+  fill(100);
+  circle(0,0,5);
+ popMatrix();
+}
+
+//void drawE(){}
+
+//void drawF(){}
+
+//void drawG(){}
+
+//void drawH(){}
+
+//void drawA(){}
