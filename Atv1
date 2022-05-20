@@ -1,41 +1,86 @@
 float fr;
+int videoScale = 300;
+int n = 3;
+boolean inicio = true;
+
 void setup(){
  size(900,900); 
- fr = 30; //frameRate;
+ fr = 30; //frameRate;  
 
 }
 
 void draw(){
-pushMatrix();
- for (int i = 0; i<3 ; i++){
-   for(int j = 0; j<3; j++){
-      rect(i*300, j*300, 300, 300);  
-      
-   }
-  }
-popMatrix();
-  //drawA();
+
+  // 
+  fill(250);
+  rect(0*videoScale, 0*videoScale, videoScale, videoScale);
+  drawA();
+  
+  fill(0,0,250);
+  rect(1*videoScale, 0*videoScale, videoScale, videoScale);
   //drawB();
+  
+  fill(0,0,50);
+  rect(2*videoScale, 0*videoScale, videoScale, videoScale);
   drawC();
+  
+  noFill();
+  rect(0*videoScale, 1*videoScale, videoScale, videoScale);
   drawD();
-  //drawE();
+  
+  fill(0,110,150);
+  rect(1*videoScale, 1*videoScale, videoScale, videoScale);
+  drawE();
+  
+  fill(200,250,200);
+  rect(2*videoScale, 1*videoScale, videoScale, videoScale);
   //drawF();
+  
+  fill(150,0,150);
+  rect(0*videoScale, 2*videoScale, videoScale, videoScale);
   //drawG();
+  
+  fill(150,255,150);
+  rect(1*videoScale, 2*videoScale, videoScale, videoScale);
   //drawH();
   
-  
-fill(255);
 }
 
-//void drawA(){}
-//void drawB(){}
-
-void drawC (){
-  
+// Polígono regular de N lados inscrito em um c´ırculo.
+void drawA(){
   pushMatrix();
-  noStroke();
+  
+  translate(150,150);
+  float a = TWO_PI/n;
+  int r = 100;
+  if (frameCount%(2*int(frameRate)) == 0){
+    if (n > 12){
+      n=2;
+    }
+    n ++;
+  }
+  beginShape();
+  for(int i=0; i < n; i++)
+  {
+    float x = r*cos(i*a);
+    float y = r*sin(i*a);
+    vertex(x,y);
+  }
+  endShape(CLOSE);
+  popMatrix();
+}
+
+// Koch
+void drawB(){
+
+  
+}
+
+// Sol e Lua 
+void drawC (){
+  pushMatrix();
   translate(0,0);
-  translate(300*2+150,150);
+  translate(videoScale*2+150,150);
   fill(255, 204, 0);
   circle(0,0,50);
   rotate(frameCount*(TWO_PI)/(60*20));
@@ -44,36 +89,78 @@ void drawC (){
   circle(0,0,20);
   rotate(frameCount*(TWO_PI)/(60*5));
   translate(30,0);
-  fill(100);
-  circle(0,0,5);
+  fill(255);
+  circle(0,0,3);
   popMatrix();
   
 }
 
+// Rastro Lunar
 void drawD(){
+  
   pushMatrix();
-  noStroke();
   translate(0,0);
   translate(150,450);
-  //fill(255, 204, 0);
-  //circle(0,0,50);
   rotate(frameCount*(TWO_PI)/(60*20));
   translate(100,0);
-  //fill(0,0,205);
-  //circle(0,0,20);
   rotate(frameCount*(TWO_PI)/(60*5));
   translate(30,0);
   fill(100);
   circle(0,0,5);
- popMatrix();
+  popMatrix();
+ 
 }
 
-//void drawE(){}
+// Mini Sistema Solar
+void drawE(){
+  
+  pushMatrix();
+  translate(videoScale*1+150,videoScale*1+150);
+  noStroke();
+  fill(255, 204, 0);
+  circle(0,0,50);
+  
+  //Mercúrio
+  pushMatrix();
+  rotate(frameCount*(TWO_PI)/(60*6));
+  translate(55,0);
+  fill(100);
+  circle(0,0,10);
+  popMatrix();
+  
+  // Vênus
+  pushMatrix();
+  rotate(frameCount*(TWO_PI)/(60*8));
+  translate(75,0);
+  fill(250,100,0);
+  circle(0,0,15);
+  popMatrix();
+  
+  // Terra
+  pushMatrix();
+  rotate(frameCount*(TWO_PI)/(60*10));
+  translate(100,0);
+  fill(0,0,255);
+  circle(0,0,20);
+  rotate(frameCount*(TWO_PI)/(60*5));
+  translate(15,0);
+  fill(255);
+  circle(0,0,3);
+  popMatrix();
+  
+  // Marte
+  pushMatrix();
+  rotate(frameCount*(TWO_PI)/(60*10+10));
+  translate(130,0);
+  fill(205,50,0);
+  circle(0,0,17);
+  popMatrix();
+
+  popMatrix();  
+}
 
 //void drawF(){}
 
 //void drawG(){}
 
 //void drawH(){}
-
-//void drawA(){}
