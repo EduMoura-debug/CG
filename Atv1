@@ -6,7 +6,7 @@ int nivel = 1;
 void setup(){
  size(900,900); 
  fr = 30; //frameRate;  
-
+//frameRate(1);
 }
 
 void draw(){
