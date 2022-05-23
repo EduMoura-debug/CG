@@ -6,7 +6,7 @@ int nivel = 1;
 void setup(){
  size(900,900); 
  fr = 30; //frameRate;  
-//frameRate(1);
+ frameRate(fr);
 }
 
 void draw(){
@@ -18,6 +18,7 @@ void draw(){
 
   
   // Koch -> Falta fechar ele 
+  pushMatrix();
   float ax, ay, bx, by;
   ax = 310;
   ay = 100;
@@ -32,7 +33,11 @@ void draw(){
   fill(0,0,250);
   rect(1*videoScale, 0*videoScale, videoScale, videoScale);
   drawB(ax,ay,bx,by,nivel);
-  //drawB(100,100,590,100,nivel);
+    /*
+  rotate(PI/2);
+  drawB(ax,ay,bx,by,nivel);
+  */
+  popMatrix();
   
   
   // Sol e Lua 
