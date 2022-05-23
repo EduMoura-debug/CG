@@ -11,7 +11,7 @@ void setup(){
 
 void draw(){
 
-  // Polígono regular de N lados inscrito em um círculo.
+  // Polígono regular de N lados inscrito em um círculo -> Falta o cículo inscrito
   fill(250);
   rect(0*videoScale, 0*videoScale, videoScale, videoScale);
   drawA();
