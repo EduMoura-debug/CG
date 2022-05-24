@@ -11,14 +11,13 @@ void setup(){
 
 void draw(){
 
-  // Polígono regular de N lados inscrito em um círculo -> Falta o cículo inscrito
+  // Polígono regular de N lados inscrito em um círculo.
   fill(250);
   rect(0*videoScale, 0*videoScale, videoScale, videoScale);
-  drawA();
+  //drawA();
 
   
   // Koch -> Falta fechar ele 
-  pushMatrix();
   float ax, ay, bx, by;
   ax = 310;
   ay = 100;
@@ -32,18 +31,14 @@ void draw(){
   }
   fill(0,0,250);
   rect(1*videoScale, 0*videoScale, videoScale, videoScale);
-  drawB(ax,ay,bx,by,nivel);
-    /*
-  rotate(PI/2);
-  drawB(ax,ay,bx,by,nivel);
-  */
-  popMatrix();
+  //drawB(ax,ay,bx,by,nivel);
+  //drawB(100,100,590,100,nivel);
   
   
   // Sol e Lua 
   fill(0,0,50);
   rect(2*videoScale, 0*videoScale, videoScale, videoScale);
-  drawC();
+  //drawC();
   
   
   // Rastro da Lua 
@@ -60,7 +55,7 @@ void draw(){
   
   fill(200,250,200);
   rect(2*videoScale, 1*videoScale, videoScale, videoScale);
-  //drawF();
+  drawF();
   
   
   fill(150,0,150);
@@ -104,7 +99,7 @@ void drawA(){
 
 // Koch
 void drawB(float Ax, float Ay, float Bx, float By, int nivel){
-    //pushMatrix();
+//pushMatrix();
     float ax, ay, bx, by;
     float cx, cy, dx, dy, ex, ey;
     
@@ -133,7 +128,7 @@ void drawB(float Ax, float Ay, float Bx, float By, int nivel){
     drawB(ex,ey,dx,dy,nivel-1);
     drawB(dx,dy,bx,by,nivel-1);
     
-    //popMatrix();
+//popMatrix();
 }
 
 // Sol e Lua 
@@ -175,6 +170,7 @@ void drawD(){
 void drawE(){
   
   pushMatrix();
+  
   translate(videoScale*1+150,videoScale*1+150);
   noStroke();
   fill(255, 204, 0);
@@ -219,7 +215,41 @@ void drawE(){
   popMatrix();  
 }
 
-//void drawF(){}
+//
+void drawF(){
+/*
+x(u) = cos(u)(e^cos(u) − 2cos(4u) − sin(u/12)^5)
+y(u) = sin(u)(e^cos(u) − 2cos(4u) − sin(u/12)^5
+)
+*/
+pushMatrix();  
+
+float u = frameCount;
+float p1x = videoScale+10;
+float p1y = videoScale+150;
+float p2x = (cos(u) * (exp(cos(u)) - 2 * cos(4 * u) - pow(sin(u/12),5)));
+float p2y = (sin(u) * (exp(cos(u)) - 2 * cos(4 * u) - pow(sin(u/12),5)));
+float p3x = videoScale*2-10;
+float p3y = videoScale+150;
+/*
+beginShape();
+  vertex(p1x, p1y);
+  for(float t = 0; t <= 1; t += 0.01)
+  {
+    float ax = p1x + t*(p2x-p1x);
+    float bx = p2x + t*(p3x-p2x);
+    float cx = ax + t*(bx-ax);
+    float ay = p1y + t*(p2y-p1y);
+    float by = p2y + t*(p3y-p2y);
+    float cy = ay + t*(by-ay);
+    vertex(cx,cy);  
+  }
+  vertex(p3x, p3y);
+  endShape(CLOSE);
+  bezier(p1x,p1y,p2x,p2y,p3x,p3y);
+*/
+popMatrix();  
+}
 
 //void drawG(){}
 
