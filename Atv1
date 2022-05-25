@@ -12,9 +12,9 @@ void setup(){
 void draw(){
 
   // Polígono regular de N lados inscrito em um círculo.
-  fill(250);
+  fill(250,100,100);
   rect(0*videoScale, 0*videoScale, videoScale, videoScale);
-  //drawA();
+  drawA();
 
   
   // Koch -> Falta fechar ele 
@@ -29,47 +29,46 @@ void draw(){
    }
    nivel++;
   }
-  fill(0,0,250);
+  fill(100,200,250);
   rect(1*videoScale, 0*videoScale, videoScale, videoScale);
-  //drawB(ax,ay,bx,by,nivel);
+  drawB(ax,ay,bx,by,nivel);
   //drawB(100,100,590,100,nivel);
   
   
   // Sol e Lua 
   fill(0,0,50);
   rect(2*videoScale, 0*videoScale, videoScale, videoScale);
-  //drawC();
+  drawC();
   
   
   // Rastro da Lua 
   noFill();
   rect(0*videoScale, 1*videoScale, videoScale, videoScale);
-  //drawD();
+  drawD();
   
   
   // Sol e Lua + Sistema Solar
   fill(0,110,150);
   rect(1*videoScale, 1*videoScale, videoScale, videoScale);
-  //drawE();
+  drawE();
   
   
-  fill(200,250,200);
+  fill(250,250,200);
   rect(2*videoScale, 1*videoScale, videoScale, videoScale);
   //drawF();
   
   
   fill(150,0,150);
   rect(0*videoScale, 2*videoScale, videoScale, videoScale);
-  drawG();
+  //drawG();
   
   
-  fill(150,255,150);
+  rect(1*videoScale, 2*videoScale, videoScale*2, videoScale);  
+  fill(250,200,50);
   rect(1*videoScale, 2*videoScale, videoScale, videoScale);
-  //drawH1();
-  
-  fill(100,200,150);
+  fill(150,200,50);
   rect(2*videoScale, 2*videoScale, videoScale, videoScale);
-  //drawH2();
+  //drawH();
   
 }
 
@@ -98,10 +97,12 @@ void drawA(){
 }
 
 // Koch
-void drawB(float Ax, float Ay, float Bx, float By, int nivel){
+void drawB(float Ax, float Ay, float Bx, float By, int nivel){ //Fazer triangulo
 //pushMatrix();
     float ax, ay, bx, by;
     float cx, cy, dx, dy, ex, ey;
+    float a = TWO_PI/n;
+    int r = 100;
     
     ax = Ax;
     ay = Ay;
@@ -113,6 +114,8 @@ void drawB(float Ax, float Ay, float Bx, float By, int nivel){
      line(ax,ay,bx,by);
      return;
     }
+    
+    
 
     cx = (bx-ax)*1/3 + ax ;
     cy = (by-ay)*1/3 + ay;
@@ -145,7 +148,7 @@ void drawC (){
   rotate(frameCount*(TWO_PI)/(60*5));
   translate(30,0);
   fill(255);
-  circle(0,0,3);
+  circle(0,0,4);
   popMatrix();
   
 }
@@ -170,16 +173,15 @@ void drawD(){
 void drawE(){
   
   pushMatrix();
-  
   translate(videoScale*1+150,videoScale*1+150);
-  noStroke();
+  //noStroke();
   fill(255, 204, 0);
-  circle(0,0,50);
+  circle(0,0,50); 
   
   //Mercúrio
   pushMatrix();
   rotate(frameCount*(TWO_PI)/(60*6));
-  translate(55,0);
+  translate(50,0);
   fill(100);
   circle(0,0,10);
   popMatrix();
@@ -187,7 +189,7 @@ void drawE(){
   // Vênus
   pushMatrix();
   rotate(frameCount*(TWO_PI)/(60*8));
-  translate(75,0);
+  translate(70,0);
   fill(250,100,0);
   circle(0,0,15);
   popMatrix();
@@ -201,18 +203,20 @@ void drawE(){
   rotate(frameCount*(TWO_PI)/(60*5));
   translate(15,0);
   fill(255);
-  circle(0,0,3);
+  circle(0,0,4);
   popMatrix();
-  
+ 
   // Marte
   pushMatrix();
   rotate(frameCount*(TWO_PI)/(60*10+10));
-  translate(130,0);
+  translate(133,0);
   fill(205,50,0);
   circle(0,0,17);
   popMatrix();
 
-  popMatrix();  
+
+popMatrix();
+
 }
 
 //
@@ -225,13 +229,13 @@ y(u) = (sin(u) * (exp(cos(u)) - 2 * cos(4 * u) - pow(sin(u/12),5)))
 pushMatrix();  
 
 float u = frameCount;
-float p1x = videoScale+10;
+float p1x = videoScale*2+50;
 float p1y = videoScale+150;
-float p2x = (cos(u) * (exp(cos(u)) - 2 * cos(4 * u) - pow(sin(u/12),5)));
-float p2y = (sin(u) * (exp(cos(u)) - 2 * cos(4 * u) - pow(sin(u/12),5)));
-float p3x = videoScale*2-10;
+float p2x = (cos(u) * (exp(cos(u)) - 2 * cos(4 * u) - sin(pow((u/12),5))));
+float p2y = (sin(u) * (exp(cos(u)) - 2 * cos(4 * u) - sin(pow((u/12),5))));
+float p3x = videoScale*3-10;
 float p3y = videoScale+150;
-/*
+fill(0);
 beginShape();
   vertex(p1x, p1y);
   for(float t = 0; t <= 1; t += 0.01)
@@ -246,6 +250,7 @@ beginShape();
   }
   vertex(p3x, p3y);
   endShape(CLOSE);
+  /*
   bezier(p1x,p1y,p2x,p2y,p3x,p3y);
 */
 
@@ -265,6 +270,19 @@ pushMatrix();
 popMatrix();  
 }
 
-//void drawH1(){}
-
-//void drawH2(){}
+/*
+void drawH(){ // criar bolas azuis e vermelhas + dar velocidade e checar se elas vão sair do retangulo
+  // Update the position of the shape
+  xpos = xpos + ( xspeed * xdirection );
+  ypos = ypos + ( yspeed * ydirection );
+  
+  // Test to see if the shape exceeds the boundaries of the screen
+  // If it does, reverse its direction by multiplying by -1
+  if (xpos > width-rad || xpos < rad) {
+    xdirection *= -1;
+  }
+  if (ypos > height-rad || ypos < rad) {
+    ydirection *= -1;
+  }
+}
+*/
