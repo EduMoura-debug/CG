@@ -55,12 +55,12 @@ void draw(){
   
   fill(200,250,200);
   rect(2*videoScale, 1*videoScale, videoScale, videoScale);
-  drawF();
+  //drawF();
   
   
   fill(150,0,150);
   rect(0*videoScale, 2*videoScale, videoScale, videoScale);
-  //drawG();
+  drawG();
   
   
   fill(150,255,150);
@@ -218,8 +218,8 @@ void drawE(){
 //
 void drawF(){
 /*
-x(u) = cos(u)(e^cos(u) − 2cos(4u) − sin(u/12)^5)
-y(u) = sin(u)(e^cos(u) − 2cos(4u) − sin(u/12)^5
+x(u) = (cos(u) * (exp(cos(u)) - 2 * cos(4 * u) - pow(sin(u/12),5)))
+y(u) = (sin(u) * (exp(cos(u)) - 2 * cos(4 * u) - pow(sin(u/12),5)))
 )
 */
 pushMatrix();  
@@ -248,10 +248,22 @@ beginShape();
   endShape(CLOSE);
   bezier(p1x,p1y,p2x,p2y,p3x,p3y);
 */
+
 popMatrix();  
 }
 
-//void drawG(){}
+void drawG(){
+  /*
+  r(θ) = R*(1 + acos(2θ + ϕ1) + bcos(3θ + ϕ2))
+  a + b < 1;
+  θ em [0, 2π]
+  R, ϕ1 e ϕ2 -> valores fixos, ver o que estão controlando
+  */
+pushMatrix();
+
+
+popMatrix();  
+}
 
 //void drawH1(){}
 
