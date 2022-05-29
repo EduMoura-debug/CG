@@ -1,0 +1,77 @@
+int k = 0;
+int i;
+int iter = 10000;
+float x, y;
+float pi = 3.14159265358979;
+
+float t = 0;
+float tStep = 0.1;
+
+float q = 0;
+float qStep = 0.01;
+
+color white = color(255, 255, 255);
+color red = color(255, 0, 0);
+color col;
+
+
+
+
+
+void setup() {
+
+  size(600, 400);
+
+  //noLoop();
+  noFill();
+  background(0);
+
+
+  //frameRate(30);
+}
+
+
+void draw() {
+
+  background(0);
+
+
+  t = 0;
+  x = 0; 
+  y=0;
+  k = k + 1;
+
+
+  q = q + pi/100; // qStep;
+
+  loadPixels();
+
+  for (i=0; i < iter; i++) {
+
+    t = t + tStep;
+
+    // x = sin(t + cos(4 * t + q) - sin(2 * t) + q) * width/3 + width/2;
+    // y = cos(t + sin(-4 * t - q) - cos(2 * t) - q) * height/3 + height/2;
+
+    // The commented lines above are the original equations. 
+    // The "q / t" is what makes the animation devolve into a looser graph as t goes up.
+    // Play around with the constants, the +/- values etc for different effects. 
+    // Using the same coefficients for X and Y will tend to result in a cleaner graph
+
+
+
+    x = sin(t + cos(4 * t + q) - cos(2 * t) + q / t) * width/3 + width/2;
+    y = cos(t + sin(-4 * t - q) - cos(2 * t) - q / t) * height/3 + height/2;
+
+    //set(int(x),int(y),color(255,255,255));
+
+    col = color(k % 255, 128 + k % 128, 255 - (k % 128));
+
+    pixels[int(y) * width + int(x)] = col;
+
+    //println(x , y, "t=", t, "i=", i, "q=", q, "k=", k);
+  }
+
+
+  updatePixels();
+}
