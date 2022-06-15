@@ -1,3 +1,4 @@
+import sys
 import sdl2
 from OpenGL.GL import *
 from OpenGL.GLU import *
@@ -8,12 +9,24 @@ from PIL import Image
 #from PIL import Image  - pip3 install pillow
 #python3, pip3 e os instals do OpenGL
 
-N = 20
-r = 1
+N = 50
+ 
+def InitGL(Width, Height):             
+    glClearColor(0.0, 0.0, 0.0, 0.0) 
+    glClearDepth(1.0)
+    glDepthFunc(GL_LESS)               
+    glEnable(GL_DEPTH_TEST)            
+    glShadeModel(GL_SMOOTH)            
+    glMatrixMode(GL_PROJECTION)
+    gluPerspective(45.0, float(Width)/float(Height), 0.1, 100.0)
+    glMatrixMode(GL_MODELVIEW)
 
+
+r = 1
+a = 0
 
 def coords(i,j):
-    theta = map(i,0,N,-math.pi/2,math.pi)
+    theta = map(i,0,N,-math.pi/2,math.pi/2)
     phy = map(j,0,N-1,0,2*math.pi)
     x = r * math.cos(theta)*math.cos(phy)
     y = r * math.sin(theta)
@@ -27,19 +40,18 @@ def cor(i,j):
     return b,g,r
 
 
-def map(valor, v0, vf,m0,mf):
-    return m0+(((valor-v0)*(vf-v0))/(mf-m0))
+def map(valor, v0, vf, m0, mf):
+    return m0+(((valor-v0)*(mf-m0))/(vf-v0))
 
-a = 0
 def desenha():
     global a 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-    #glLoadIdentify()
+    glLoadIdentity() 
     glTranslatef(0.0,0.0,-3.0)
     glRotatef(a,0.0,1.0,0.0)
     for i in range(0,N): #range(N/2,N/2+1)
         glBegin(GL_TRIANGLE_STRIP)
-        for j in range(0,N):
+        for j in range(0,N+1):
             x, y, z = coords(i,j) # coords(i-1,j)
             r, g, b = cor(i,j)
             glColor3f(r,g,b)
@@ -50,6 +62,7 @@ def desenha():
             glVertex3f(x,y,z)
         glEnd()
     a+=1
+
 
 WINDOW_WIDTH = 800
 WINDOW_HEIGHT = 600
@@ -66,12 +79,7 @@ if not window:
     sys.stderr.write("Error: Could not create window\n")
     exit(1)
 glcontext = sdl2.SDL_GL_CreateContext(window)
-glEnable(GL_MULTISAMPLE)
-glEnable(GL_DEPTH_TEST)
-glClearColor(0.,0.,0.,1.)
-gluPerspective(45,800.0/600.0,0.1,100.0)
-#glTranslatef(0.0,0.0,-20)
-
+InitGL(WINDOW_WIDTH,WINDOW_HEIGHT)
 running = True
 event = sdl2.SDL_Event()
 while running:
@@ -79,7 +87,6 @@ while running:
         if event.type == sdl2.SDL_QUIT:
             running = False
         if event.type == sdl2.events.SDL_KEYDOWN:
-            print("SDL_KEYDOWN")
             if event.key.keysym.sym == sdl2.SDLK_ESCAPE:
                 running = False
     desenha()
