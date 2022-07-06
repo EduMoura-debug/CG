@@ -46,9 +46,6 @@ def calculaNormal(v0,v1,v2):
 
 def map(valor, v0, vf, m0, mf):
     return m0+(((valor-v0)*(mf-m0))/(vf-v0))
-
-def map(valor, v0, vf, m0, mf):
-    return m0+(((valor-v0)*(mf-m0))/(vf-v0))
  
 def cor(i,j):
     theta = map(i,0,N,-math.pi/2,math.pi/2)
