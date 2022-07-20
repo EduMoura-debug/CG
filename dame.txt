@@ -1,0 +1,34 @@
+
+float s = 0.01;
+float stroke = 0.02;
+
+float circulo(in vec2 c, in float r, in vec2 uv){
+    
+    float d = distance(c, uv);
+    return 1.0-smoothstep(r-s,r+s,d);
+}
+
+float circunferencia(in vec2 c, in float r, in vec2 uv){
+   return circulo(c,r,uv) - circulo(c,r-stroke,uv);
+
+}
+
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
+{
+    vec2 uvt = fragCoord/iResolution.xy;
+    vec2 uv = (2.0*(fragCoord/iResolution.xy))-1.0;
+
+    uv.x *= iResolution.x/iResolution.y;
+
+    float raio = cos(iTime)/4.0+0.5;
+    float cor = circunferencia(vec2(0.5,0.0), raio, uv) + circulo(vec2(-0.5,0.0), raio, uv);
+    
+    vec4 yellow = vec4(1.0,1.0,0.0,1.0);
+    vec4 blue   = vec4(0.0,0.0,0.7,1.0);
+    
+    vec4 txtr = texture(iChannel0,uvt);
+    vec4 dame = texture(iChannel1,uvt);
+    
+    //fragColor = cor*yellow+(1.0-cor)*blue, 1.0;
+    fragColor = cor*txtr+(1.0-cor)*dame, 1.0;
+}
