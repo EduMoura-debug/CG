@@ -5,7 +5,7 @@ import glm
 import math
 from StanfordBunny import *
 a = 0
-
+# pip install numpy e pip install PyGLM
 class StanfordBunnyApp(GLAPP):
 
     def setup(self):
